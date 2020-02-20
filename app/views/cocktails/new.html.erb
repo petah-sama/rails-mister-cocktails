@@ -1,0 +1,9 @@
+<h1>Add your cocktail here!</h1>
+
+
+<%= simple_form_for (@cocktail) do |f| %>
+  <%= f.input :name %>
+  <%= f.submit 'Add cocktail 🍹' %>
+<% end %>
+
+<%= link_to 'Back to Puzzles home', cocktails_path %>

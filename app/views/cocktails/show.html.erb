@@ -1,0 +1,8 @@
+<h1>Puzzles</h1>
+<h2><%= @cocktail.name %></h2>
+<%#= @cocktail.dose.description %>
+
+<%= link_to 'Add Ingredients', new_cocktail_dose_path(@cocktail) %>
+
+
+<%= link_to 'Back to Puzzles home', cocktails_path %>
