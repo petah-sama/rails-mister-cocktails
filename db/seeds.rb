@@ -5,13 +5,32 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts "Reading ingredients from remote json"
+url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
+response = RestClient.get(url)
+json = JSON.parse(response.body, symbolize_names: true)
 
-puts 'Throwing ingredients in the trash 🚮'
+
+puts "Throwing ingredients in the trash 🚮"
 Ingredient.destroy_all
 
-puts 'Buying more ingredients 🏬'
-Ingredient.create(name: "lemon")
-Ingredient.create(name: "ice")
-Ingredient.create(name: "mint leaves")
+puts "Buying more ingredients 🏬"
+json[:drinks].each do |drink|
+  name = drink[:strIngredient1]
+  Ingredient.create!(name: name)
+end
 
-puts 'Ingredients set for cocktails 🍹'
+puts 'Ingredients ready for cocktails! 🍹'
+
+puts 'Throwing away all cocktails 🚮'
+Cocktail.destroy_all
+
+puts "Creating some new cocktails 🍸"
+20.times do
+  first = Faker::TvShows::HowIMetYourMother.catch_phrase
+  second = Faker::Dessert.unique.flavor
+
+  Cocktail.create!(name: "#{first} #{second}")
+end
+
+puts 'Done! 🍹'

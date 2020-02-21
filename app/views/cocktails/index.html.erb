@@ -1,8 +1,22 @@
-<h1>Welcome to Puzzles</h1>
+<div class="container">
+  <div class="d-flex justify-content-between mt-4">
+    <h1>Welcome to Puzzles</h1>
 
-<%= link_to 'Add a new Cocktail', new_cocktail_path %>
-
-<% @cocktails.each do |cocktail| %>
-  <h3><%= link_to cocktail.name, cocktail_path(cocktail) %></h3>
-  <br>
-<% end %>
+    <%#= link_to 'Add a new Cocktail', new_cocktail_path, class: "btn btn-outline-danger" %>
+    <div class="btn btn-outline-danger">
+      <%= link_to new_cocktail_path do %>
+        <p style="font-size: 100px">+</p>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <!-- <div class="col-3"> -->
+      <% @cocktails.each do |cocktail| %>
+        <div class="card m-3 p-2 col-4" style="text-align: center;">
+          <h3><%= link_to cocktail.name, cocktail_path(cocktail) %></h3>
+          <br>
+        </div>
+      <% end %>
+    <!-- </div> -->
+  </div>
+</div>

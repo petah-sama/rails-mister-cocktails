@@ -1,8 +1,49 @@
-<h1>Puzzles</h1>
-<h2><%= @cocktail.name %></h2>
-<%#= @cocktail.dose.description %>
+<div class="text-center mt-2">
+  <h1>Puzzles</h1>
+</div>
+<div class="ml-5">
+  <h2><%= @cocktail.name %></h2>
+</div>
 
-<%= link_to 'Add Ingredients', new_cocktail_dose_path(@cocktail) %>
+<div class="row m-4">
+  <div class="col-8 mt-4">
+    <h3>Ingredients</h3>
+    <% if @cocktail.doses.empty? %>
+      <h6>No ingredients yet! 🤷</h6>
+    <% else %>
+      <ul class="list-unstyled">
+        <% @cocktail.doses.each do |dose| %>
+        <li>
+          <strong><%= dose.ingredient.name %></strong>
+          &mdash; <%= dose.description %>
+          (<%= link_to 'delete', dose_path(dose), method: :delete %>)
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="col-4 mt-4">
+    <h3>Add a new ingredient</h3>
+    <%= simple_form_for [@cocktail, @dose] do |f| %>
+      <%= f.association :ingredient %>
+      <%= f.input :description %>
+      <%= f.submit 'Mix it up! 🍸' %>
+    <% end %>
+  </div>
+  <%= link_to 'Back to Puzzles home', cocktails_path, class: 'btn btn-dark' %>
+</div>
 
 
-<%= link_to 'Back to Puzzles home', cocktails_path %>
+
+
+
+
+
+
+
+
+
+
+<%#= link_to 'Add Ingredients', new_cocktail_dose_path(@cocktail) %>
+
+
